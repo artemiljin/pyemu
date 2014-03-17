@@ -61,3 +61,12 @@ class TestTelnetEmulator(TestCase):
 
         c.write("bar\r\n")
         self.assertEqual(c.read_all(), '\r\nBye!\r\n')
+
+    def test_set_data(self):
+        self.server.set_emulation('Enter "foo"\n> <%foo%>\nBye!\n')
+
+        c = telnetlib.Telnet('localhost', 9023)
+        self.assertEqual(c.read_until('> '), 'PyEmu v0.1 Session\r\n\r\nEnter "foo"\r\n> ')
+
+        c.write("foo\r\n")
+        self.assertEqual(c.read_all(), 'Bye!\r\n')

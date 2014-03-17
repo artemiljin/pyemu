@@ -45,6 +45,7 @@ class CommandHandler(LineBasedHandler):
     Command handler for emulation server.
     
     LOAD <file>: Load a simulation into the emulator
+    SET <data>:  Sets the emulation data (must be quoted)
     QUIT:        Quit command server
     SHUTDOWN:    Shutdown all servers
     HELP:        This help
@@ -61,15 +62,23 @@ class CommandHandler(LineBasedHandler):
         cmd = parts[0].upper()
 
         if cmd == "LOAD":
-            f = parts[1]
-            self.send("Loading '{0}'".format(f) + EOL)
             try:
+                f = parts[1]
+                self.send("Loading '{0}'".format(f) + EOL)
                 with open(f, 'r') as bob:
                     data = bob.read()
                 self.emulation_server.set_emulation(data)
                 self.send("Loaded file" + EOL)
-            except IOError:
+            except (IOError, IndexError):
                 self.send("Failed to load file" + EOL)
+            return self.send(self.prompt)
+
+        if cmd == "SET":
+            try:
+                self.emulation_server.set_emulation(parts[1])
+                self.send("Set emulation data")
+            except IndexError:
+                self.send("Failed to set data")
             return self.send(self.prompt)
 
         if cmd == "QUIT":
@@ -220,3 +229,6 @@ class BackgroundEmulationServer(threading.Thread):
 
     def load_emulation(self, f):
         self._send_command('LOAD "{0}"'.format(f))
+
+    def set_emulation(self, s):
+        self._send_command('SET "{0}"'.format(s.replace('"', '\\"')))
