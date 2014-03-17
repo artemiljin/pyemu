@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+
+import argparse, logging, sys
+
+sys.path.insert(0, '.')
+
+parser = argparse.ArgumentParser(description="Telnet session emulator")
+parser.add_argument('script', type=file, help="Script to follow")
+parser.add_argument('--port', '-p', type=int, default=23, help='Listening port')
+parser.add_argument('--cli', '-c', action='store_true', help='Run on command line instead')
+parser.add_argument('--verbose', '-v', action='store_true', help='Verbose output')
+options = parser.parse_args()
+
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG if options.verbose else logging.INFO)
+
+data = options.script.read()
+
+if options.cli:
+    from pyemu.emulator import run_command_line
+    run_command_line(data)
+else:
+    from pyemu.telnet import run_telnet_server
+    run_telnet_server(data, options.port)
