@@ -6,4 +6,4 @@ setup(name='PyEmu',
       author='Tris Forster',
       author_email='tris@tfconsulting.com.au',
       packages=['pyemu'],
-      scripts=['scripts/emulator'])
+      scripts=['scripts/pyemu'])
