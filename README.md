@@ -6,8 +6,9 @@ Python Emulator for testing line based protocols (telnet, ftp, etc...)
 Follows script files.  Input is delimited by <% %> tags and is designed so you can
 pretty much cut-and-paste a a session and mark up the input.
 
-``examples/foobar.txt``::
+**examples/foobar.txt**:
 
+```
 	This is a test script
 
 	Enter 'foo'
@@ -17,12 +18,20 @@ pretty much cut-and-paste a a session and mark up the input.
 	> <%bar%>
 
 	Bye!
+```
 	
 Usage::
-
-	> pyemu --help
-	> pyemu examples/foobar.txt --cli
+```bash
+	$ pyemu --help
+	$ pyemu examples/foobar.txt --cli
+	PyEmu v0.1 Session
 	
+	This is a test script
+	
+	Enter 'foo'
+	> 
+```
+
 Telnet
 ------
 Can run as a telnet server.
@@ -42,41 +51,45 @@ Unittesting
 -----------
 
 Includes :telnet.BackgroundEmulationServer which can be used to unit test your clients.
-::
 
-	from unittest import TestCase
-	from pycart.telnet import BackgroundEmulationServer
-	import telnetlib
-	
-	class MyTestCase(TestCase):
-	
-		def setUp(self):
-			self.emulation = BackgroundEmulationServer(port=9023)
-			
-		def tearDown(self):
-			self.emulation.stop()
-			
-		def test_emulation_server(self):
-			self.server.set_emulation('Enter "foo"\n> <%foo%>\nBye!\n')
-			
-			c = telnetlib.Telnet('localhost', 9023)
-			self.assertEqual(c.read_until('> '), 'PyEmu v0.1 Session\r\n\r\nEnter "foo"\r\n> ')
-			
-			c.write("foo\r\n")
-			self.assertEqual(c.read_all(), 'Bye!\r\n')
+```python
+from unittest import TestCase
+from pycart.telnet import BackgroundEmulationServer
+import telnetlib
+
+class MyTestCase(TestCase):
+
+	def setUp(self):
+		self.emulation = BackgroundEmulationServer(port=9023)
+		
+	def tearDown(self):
+		self.emulation.stop()
+		
+	def test_emulation_server(self):
+		self.server.set_emulation('Enter "foo"\n> <%foo%>\nBye!\n')
+		
+		c = telnetlib.Telnet('localhost', 9023)
+		self.assertEqual(c.read_until('> '), 'PyEmu v0.1 Session\r\n\r\nEnter "foo"\r\n> ')
+		
+		c.write("foo\r\n")
+		self.assertEqual(c.read_all(), 'Bye!\r\n')
+```
 
 Recorder
 --------
 Records telnet sessions for playback
 
+```bash
 	> pyemu-recorder myserver -f output/myserver_login.session
 	User: bob
 	Pass: ******
 	> quit
 	
 	> pyemu output/myserver_login.session
-	User: 
+	PyEmu v0.1 Session
 	
+	User: 
+```
 		
 Docs
 ----
