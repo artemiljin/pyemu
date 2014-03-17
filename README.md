@@ -3,10 +3,10 @@ PyEmu
 
 Python Emulator for testing line based protocols (telnet, ftp, etc...)
 
-Follows script files.  Input is delimited by <% %> tags and is designed so you can
+Follows script files.  Input is delimited by ``<% %>`` tags and is designed so you can
 pretty much cut-and-paste a a session and mark up the input.
 
-**examples/foobar.txt**:
+``examples/foobar.txt``:
 
 ```
 	This is a test script
@@ -20,7 +20,8 @@ pretty much cut-and-paste a a session and mark up the input.
 	Bye!
 ```
 	
-Usage::
+Usage:
+
 ```bash
 	$ pyemu --help
 	$ pyemu examples/foobar.txt --cli
@@ -36,9 +37,9 @@ Telnet
 ------
 Can run as a telnet server.
 
-	> pyemu examples/foobar.txt -p 9023 &
+	$ pyemu examples/foobar.txt -p 9023 &
 	
-	> telnet localhost 9023
+	$ telnet localhost 9023
 	This is a test script
 	
 	Enter 'foo'
@@ -50,7 +51,7 @@ emulation files or shutdown.
 Unittesting
 -----------
 
-Includes :telnet.BackgroundEmulationServer which can be used to unit test your clients.
+Includes ``telnet.BackgroundEmulationServer`` which can be used to unit test your clients.
 
 ```python
 from unittest import TestCase
@@ -80,16 +81,20 @@ Recorder
 Records telnet sessions for playback
 
 ```bash
-	> pyemu-recorder myserver -f output/myserver_login.session
+	$ pyemu-recorder myserver -f output/myserver_login.session
 	User: bob
 	Pass: ******
 	> quit
 	
-	> pyemu output/myserver_login.session
+	$ pyemu output/myserver_login.session
 	PyEmu v0.1 Session
 	
 	User: 
 ```
+
+Limitations
+-----------
+* Is currently line based so input tags can only appear at the end of a line and require a lf to send.
 		
 Docs
 ----
