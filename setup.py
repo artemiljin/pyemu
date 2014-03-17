@@ -6,4 +6,4 @@ setup(name='PyEmu',
       author='Tris Forster',
       author_email='tris@tfconsulting.com.au',
       packages=['pyemu'],
-      scripts=['scripts/pyemu'])
+      scripts=['scripts/pyemu', 'scripts/pyemu-recorder'])

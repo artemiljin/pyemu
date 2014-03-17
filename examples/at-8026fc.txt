@@ -1,0 +1,46 @@
+
+
+Local User Access Verification: 
+
+Login: <%manager%>
+manager
+Password: <%friend%>
+******[2J           Allied Telesyn Ethernet Switch AT-8026FC - AT-S39 v3.3.1 
+                                 <No System Name>
+Login Privilege: Manager
+                                    Main Menu
+
+1 - Port Menu
+2 - VLAN Menu
+3 - Spanning Tree Menu
+4 - Administration Menu
+5 - System Config Menu
+6 - MAC Address Tables
+7 - Ethernet Statistics
+8 - Diagnostics
+9 - Enhanced Stacking
+C - Command Line Interface
+
+Q - Quit
+
+Enter your selection? <%c%>
+C
+[2J                 Allied Telesyn Ethernet Switch AT-8026FC - AT-S39 v3.3.1
+                                <No System Name>
+Manager$ <%show system%>
+show system
+System Information:
+
+ Application Software Version ......... AT-S39 v3.3.1
+ Application Software Build Date ...... Sep 23 2004 12:36:24
+ Bootloader Version ................... ATS39_LOADER v2.1.0
+ Bootloader Build Date ................ Jul 21 2003 12:22:51
+ Serial Number ........................ A000123456789ABC
+ Model Name ........................... AT-8026FC
+ Name ................................. 
+ Contact .............................. 
+ Location ............................. 
+Manager$ <%quit%>
+quit
+Manager$ 
+Disconnected...
